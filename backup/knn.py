@@ -1,4 +1,4 @@
-""" Online Random Forest
+""" K-Nearest Neighbors
 """
 
 __author__ = "Bradley Reeves"
@@ -6,16 +6,16 @@ __email__ = "reevesbra@outlook.com"
 __date__ = "February 12, 2022"
 __license__ = "None"
 
-from river import AdaptiveRandomForestClassifier
+from river import KNNADWINClassifier
 from river.stream import iter_pandas
 from river.metrics import Accuracy
 import pandas as pd
 import pickle
 
 
-class AdaptiveRandomForest:
+class AdaptiveKNN:
     def __init__(self):
-        self.model = AdaptiveRandomForestClassifier()
+        self.model = KNNADWINClassifier()
 
     def save(self, file):
         with open("../pretrained/" + file + ".pkl", "wb") as f:
