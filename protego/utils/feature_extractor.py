@@ -11,8 +11,8 @@ import pandas as pd
 
 
 class FeatureExtractor:
-    def transform(self, data, include_payload):
-        return self.__get_features(data, include_payload)
+    def transform(self, data):
+        return self.__get_features(data)
 
     def __get_num_chars(self, payload):
         return len(payload)
@@ -21,7 +21,7 @@ class FeatureExtractor:
         return len(payload.split())
 
     def __get_num_special_chars(self, payload):
-        return len(re.sub('[\w]+', '', payload))
+        return len(re.sub(r'[\w]+', '', payload))
 
     def __get_num_ticks(self, payload):
         return payload.count('\'')
@@ -39,8 +39,15 @@ class FeatureExtractor:
         return payload.count('=')
 
     def __get_num_keywords(self, payload):
-        keywords = ['select', 'from', 'where', 'union',
-                    'sleep', 'or', 'and', 'like', 'order']
+        keywords = ['select',
+                    'from',
+                    'where',
+                    'union',
+                    'sleep',
+                    'or',
+                    'and',
+                    'like',
+                    'order']
         count = 0
 
         word_list = payload.split()
@@ -66,7 +73,7 @@ class FeatureExtractor:
     def __get_num_comments(self, payload):
         return payload.count('--')
 
-    def __get_features(self, data, include_payload=False):
+    def __get_features(self, data):
         rows = []
         for i, row in data.iterrows():
             cols = []
@@ -87,16 +94,21 @@ class FeatureExtractor:
             cols.append(self.__get_num_white_spaces(payload))
             cols.append(self.__get_num_comments(payload))
             cols.append(label)
-            if include_payload:
-                cols.append(payload)
             rows.append(cols)
 
-        df = pd.DataFrame(rows,
-                          columns=['num_chars', 'num_words',
-                                   'num_special_chars', 'num_ticks',
-                                   'num_dashes', 'num_commas', 'num_pipes',
-                                   'num_equals', 'num_keywords', 'num_parens',
-                                   'avg_word_len', 'num_white_spaces',
-                                   'num_comments', 'label'])
+        df = pd.DataFrame(rows, columns=['num_chars',
+                                         'num_words',
+                                         'num_special_chars',
+                                         'num_ticks',
+                                         'num_dashes',
+                                         'num_commas',
+                                         'num_pipes',
+                                         'num_equals',
+                                         'num_keywords',
+                                         'num_parens',
+                                         'avg_word_len',
+                                         'num_white_spaces',
+                                         'num_comments',
+                                         'label'])
 
         return df
