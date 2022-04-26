@@ -11,9 +11,9 @@
 __author__ = "Bradley Reeves"
 __email__ = "reevesbra@outlook.com"
 __date__ = "March 27, 2022"
-__license__ = "None"
+__license__ = "MIT"
 
-from models.base import BaseOnline
+from protego.models.base import BaseOnline
 from river.tree import HoeffdingAdaptiveTreeClassifier
 from river.neighbors import KNNADWINClassifier
 from river.linear_model import LogisticRegression
@@ -29,10 +29,10 @@ class HoeffdingAdaptiveTree(BaseOnline):
         self,
         grace_period=200,
         max_depth=None,
-        split_criterion='info_gain',
+        split_criterion="info_gain",
         split_confidence=1e-07,
         tie_threshold=0.05,
-        leaf_prediction='nba',
+        leaf_prediction="nba",
         nb_threshold=0,
         nominal_attributes=None,
         splitter=None,
@@ -44,7 +44,7 @@ class HoeffdingAdaptiveTree(BaseOnline):
         memory_estimate_period=1000000,
         stop_mem_management=False,
         remove_poor_attrs=False,
-        merit_prune=True,
+        merit_preprune=True,
         seed=None
     ):
         super().__init__(
@@ -66,7 +66,7 @@ class HoeffdingAdaptiveTree(BaseOnline):
                 memory_estimate_period=memory_estimate_period,
                 stop_mem_management=stop_mem_management,
                 remove_poor_attrs=remove_poor_attrs,
-                merit_prune=merit_prune,
+                merit_preprune=merit_preprune,
                 seed=seed
             )
         )
@@ -146,18 +146,18 @@ class AdaptiveRandomForest(BaseOnline):
     def __init__(
         self,
         n_models=10,
-        max_features='sqrt',
+        max_features="sqrt",
         lambda_value=6,
-        metric=Accuracy,
+        metric=Accuracy(),
         disable_weighted_vote=False,
-        drift_detector=ADWIN,
-        warning_detector=ADWIN,
+        drift_detector=ADWIN(),
+        warning_detector=ADWIN(),
         grace_period=50,
         max_depth=None,
-        split_criterion='info_gain',
+        split_criterion="info_gain",
         split_confidence=0.01,
         tie_threshold=0.05,
-        leaf_prediction='nba',
+        leaf_prediction="nba",
         nb_threshold=0,
         nominal_attributes=None,
         splitter=None,

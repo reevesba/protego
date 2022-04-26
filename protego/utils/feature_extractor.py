@@ -4,7 +4,7 @@
 __author__ = "Bradley Reeves"
 __email__ = "reevesbra@outlook.com"
 __date__ = "November 30, 2021"
-__license__ = "None"
+__license__ = "MIT"
 
 import re
 import pandas as pd
@@ -12,33 +12,133 @@ import pandas as pd
 
 class FeatureExtractor:
     def transform(self, data):
+        """ Transform a raw dataset
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            data: Raw dataset as DataFrame
+
+            Returns
+            -------
+            dataset: Extracted features
+        """
         return self.__get_features(data)
 
     def __get_num_chars(self, payload):
+        """ Get character count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of characters
+        """
         return len(payload)
 
     def __get_num_words(self, payload):
+        """ Get word count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of words
+        """
         return len(payload.split())
 
     def __get_num_special_chars(self, payload):
+        """ Get special char count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of special characters
+        """
         return len(re.sub(r'[\w]+', '', payload))
 
     def __get_num_ticks(self, payload):
+        """ Get single quote count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of single quotes
+        """
         return payload.count('\'')
 
     def __get_num_dashes(self, payload):
+        """ Get dash count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of dashes
+        """
         return payload.count('-')
 
     def __get_num_commas(self, payload):
+        """ Get comma count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of commas
+        """
         return payload.count(',')
 
     def __get_num_pipes(self, payload):
+        """ Get pipe count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of pipes
+        """
         return payload.count('|')
 
     def __get_num_equals(self, payload):
+        """ Get equal count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of equal characters
+        """
         return payload.count('=')
 
     def __get_num_keywords(self, payload):
+        """ Get SQL keyword count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of SQL keywords
+        """
         keywords = ['select',
                     'from',
                     'where',
@@ -58,9 +158,29 @@ class FeatureExtractor:
         return count
 
     def __get_num_parens(self, payload):
+        """ Get parenthesis count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of parenthesis
+        """
         return payload.count('(') + payload.count(')')
 
     def __get_avg_word_len(self, payload):
+        """ Get avg word length from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Average word length
+        """
         words = payload.split()
         if len(words) > 0:
             return sum(len(word) for word in words)/len(words)
@@ -68,12 +188,42 @@ class FeatureExtractor:
             return len(payload)
 
     def __get_num_white_spaces(self, payload):
+        """ Get white space count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of white spaces
+        """
         return payload.count(' ')
 
     def __get_num_comments(self, payload):
+        """ Get SQL comment count from payload
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            payload: Single sample
+
+            Returns
+            -------
+            Number of SQL comments
+        """
         return payload.count('--')
 
     def __get_features(self, data):
+        """ Extract features from dataset
+            Parameters
+            ----------
+            self: FeatureExtractor instance
+            data: All samples
+
+            Returns
+            -------
+            Features dataset
+        """
         rows = []
         for i, row in data.iterrows():
             cols = []

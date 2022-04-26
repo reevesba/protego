@@ -11,7 +11,7 @@
 __author__ = "Bradley Reeves"
 __email__ = "reevesbra@outlook.com"
 __date__ = "April 3, 2022"
-__license__ = "None"
+__license__ = "MIT"
 
 from protego.models.base import BaseBatch
 from sklearn.tree import DecisionTreeClassifier
@@ -25,8 +25,8 @@ from sklearn.ensemble import RandomForestClassifier
 class DecisionTree(BaseBatch):
     def __init__(
         self,
-        criterion='gini',
-        splitter='best',
+        criterion="gini",
+        splitter="best",
         max_depth=None,
         min_samples_split=2,
         min_samples_leaf=1,
@@ -60,11 +60,11 @@ class KNeighbors(BaseBatch):
     def __init__(
         self,
         n_neighbors=5,
-        weights='uniform',
-        algorithm='auto',
+        weights="uniform",
+        algorithm="auto",
         leaf_size=30,
         p=2,
-        metric='minkowski',
+        metric="minkowski",
         metric_params=None,
         n_jobs=None
     ):
@@ -85,7 +85,7 @@ class KNeighbors(BaseBatch):
 class LogisticRegressionClassifier(BaseBatch):
     def __init__(
         self,
-        penalty='l2',
+        penalty="l2",
         dual=False,
         tol=1e-4,
         C=1.0,
@@ -93,9 +93,9 @@ class LogisticRegressionClassifier(BaseBatch):
         intercept_scaling=1,
         class_weight=None,
         random_state=None,
-        solver='lbfgs',
+        solver="lbfgs",
         max_iter=100,
-        multi_class='auto',
+        multi_class="auto",
         verbose=0,
         warm_start=False,
         n_jobs=None,
@@ -184,12 +184,12 @@ class RandomForest(BaseBatch):
     def __init__(
         self,
         n_estimators=100,
-        criterion='gini',
+        criterion="gini",
         max_depth=None,
         min_samples_split=2,
         min_samples_leaf=1,
         min_weight_fraction_leaf=0.0,
-        max_features='auto',
+        max_features="auto",
         max_leaf_nodes=None,
         min_impurity_decrease=0.0,
         bootstrap=True,

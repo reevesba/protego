@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: protego
-Version: 0.0.10
+Version: 0.0.15
 Summary: Detect SQL Injection Payloads
 Home-page: https://github.com/reevesba/protego
 Author: Bradley Reeves

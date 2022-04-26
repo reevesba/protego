@@ -1,2 +1,4 @@
 graft protego/datasets/delivered
 graft protego/pretrained
+
+include requirements.txt
