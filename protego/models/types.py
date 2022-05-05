@@ -6,55 +6,37 @@ __email__ = "reevesbra@outlook.com"
 __date__ = "May 5, 2022"
 __license__ = "MIT"
 
-from typing import Union
-from protego.models.base import (
-    Base, BaseBatch, BaseOnline
-)
-from protego.models.batch import (
-    DecisionTree, KNeighbors,  LogisticRegressionClassifier,
-    NaiveBayes, PerceptronClassifier, RandomForest
-)
-from protego.models.online import (
-    HoeffdingAdaptiveTree, KNNADWIN, LogisticRegressionClassifier as LRRiver,
-    NaiveBayes as NBRiver, PerceptronClassifier as PRiver, AdaptiveRandomForest
-)
-from river.tree.splitter.base import Splitter
-from river.optim import Optimizer
-from river.optim.losses import BinaryLoss
-from river.optim.initializers import Initializer
-from river.schedulers import Scheduler
-from river.metrics.base import MultiClassMetric
-from river.base import DriftDetector
+from typing import Union, TypeVar
 
 # base
-BaseT = type[Base]
-BaseBatchT = type[BaseBatch]
-BaseOnlineT = type[BaseOnline]
+BaseT = TypeVar("BaseT")
+BaseBatchT = TypeVar("BaseBatch")
+BaseOnlineT = TypeVar("BaseOnline")
 
 # batch
-TreeBatchT = type[DecisionTree]
-KNNBatchT = type[KNeighbors]
-LogRegBatchT = type[LogisticRegressionClassifier]
-NaiveBayesBatchT = type[NaiveBayes]
-PerceptronBatchT = type[PerceptronClassifier]
-RandomForestBatchT = type[RandomForest]
+TreeBatchT = TypeVar("DecisionTree")
+KNNBatchT = TypeVar("KNeighbors")
+LogRegBatchT = TypeVar("LogisticRegressionClassifier")
+NaiveBayesBatchT = TypeVar("NaiveBayes")
+PerceptronBatchT = TypeVar("PerceptronClassifier")
+RandomForestBatchT = TypeVar("RandomForest")
 
 # online
-TreeOnlineT = type[HoeffdingAdaptiveTree]
-KNNOnlineT = type[KNNADWIN]
-LogRegOnlineT = type[LRRiver]
-NaiveBayesOnlineT = type[NBRiver]
-PerceptronOnlineT = type[PRiver]
-RandomForestOnlineT = type[AdaptiveRandomForest]
+TreeOnlineT = TypeVar("HoeffdingAdaptiveTree")
+KNNOnlineT = TypeVar("KNNADWIN")
+LogRegOnlineT = TypeVar("LRRiver")
+NaiveBayesOnlineT = TypeVar("NBRiver")
+PerceptronOnlineT = TypeVar("PRiver")
+RandomForestOnlineT = TypeVar("AdaptiveRandomForest")
 
 # online misc
-SplitterT = type[Splitter]
-OptimizerT = type[Optimizer]
-BinaryLossT = type[BinaryLoss]
-InterceptLRT = Union[float, type[Scheduler]]
-InitializerT = type[Initializer]
-MultiClassMetricT = type[MultiClassMetric]
-DriftDetectorT = type[DriftDetector]
+SplitterT = TypeVar("Splitter")
+OptimizerT = TypeVar("Optimizer")
+BinaryLossT = TypeVar("BinaryLoss")
+InterceptLRT = Union[float, TypeVar("Scheduler")]
+InitializerT = TypeVar("Initializer")
+MultiClassMetricT = TypeVar("MultiClassMetric")
+DriftDetectorT = TypeVar("DriftDetector")
 
 BatchModelT = Union[
     TreeBatchT, KNNBatchT, LogRegBatchT,

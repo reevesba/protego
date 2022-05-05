@@ -187,8 +187,8 @@ class RandomForest(BaseBatch):
         n_estimators: int = 100,
         criterion: str = "gini",
         max_depth: int = None,
-        min_samples_split: t.Number = 2,
-        min_samples_leaf: t.Number = 1,
+        min_samples_split: t.NumberT = 2,
+        min_samples_leaf: t.NumberT = 1,
         min_weight_fraction_leaf: float = 0.0,
         max_features: str = "auto",
         max_leaf_nodes: int = None,
@@ -201,7 +201,7 @@ class RandomForest(BaseBatch):
         warm_start: bool = False,
         class_weight: t.ClassWeightT = None,
         ccp_alpha: float = 0.0,
-        max_samples: t.Number = None
+        max_samples: t.NumberT = None
     ) -> None:
         super().__init__(
             RandomForestClassifier(

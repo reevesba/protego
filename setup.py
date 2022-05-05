@@ -10,7 +10,7 @@ with open("requirements.txt", "r") as fh:
 
 setuptools.setup(
     name="protego-sqli",
-    version="1.0.0",
+    version="1.0.1",
     author="Bradley Reeves",
     author_email="reevesbra@outlook.com",
     description="Detect SQL Injection Payloads",

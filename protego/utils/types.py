@@ -6,8 +6,7 @@ __email__ = "reevesbra@outlook.com"
 __date__ = "May 5, 2022"
 __license__ = "MIT"
 
-from protego.utils.data_loader import DataLoader
-from protego.utils.feature_extractor import FeatureExtractor
+from typing import TypeVar
 
-DataLoaderT = type[DataLoader]
-FeatureExtT = type[FeatureExtractor]
+DataLoaderT = TypeVar("DataLoader")
+FeatureExtT = TypeVar("FeatureExtractor")
