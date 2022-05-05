@@ -84,7 +84,7 @@ This package can be downloaded using PyPI.
 
 ### Installation
    ```sh
-   pip3 install protego
+   pip3 install protego-sqli
    ```
 
 <!-- ROADMAP -->

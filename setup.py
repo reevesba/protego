@@ -9,7 +9,7 @@ with open("requirements.txt", "r") as fh:
         requirements.append(line.strip())
 
 setuptools.setup(
-    name="protego",
+    name="protego-sqli",
     version="1.0.0",
     author="Bradley Reeves",
     author_email="reevesbra@outlook.com",
