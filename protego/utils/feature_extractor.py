@@ -7,11 +7,12 @@ __date__ = "November 30, 2021"
 __license__ = "MIT"
 
 import re
-import pandas as pd
+from pandas import DataFrame
+from protego.utils import types as t
 
 
 class FeatureExtractor:
-    def transform(self, data):
+    def transform(self: t.FeatureExtT, data: DataFrame) -> DataFrame:
         """ Transform a raw dataset
             Parameters
             ----------
@@ -24,7 +25,7 @@ class FeatureExtractor:
         """
         return self.__get_features(data)
 
-    def __get_num_chars(self, payload):
+    def __get_num_chars(self: t.FeatureExtT, payload: str) -> int:
         """ Get character count from payload
             Parameters
             ----------
@@ -37,7 +38,7 @@ class FeatureExtractor:
         """
         return len(payload)
 
-    def __get_num_words(self, payload):
+    def __get_num_words(self: t.FeatureExtT, payload: str) -> int:
         """ Get word count from payload
             Parameters
             ----------
@@ -50,7 +51,7 @@ class FeatureExtractor:
         """
         return len(payload.split())
 
-    def __get_num_special_chars(self, payload):
+    def __get_num_special_chars(self: t.FeatureExtT, payload: str) -> int:
         """ Get special char count from payload
             Parameters
             ----------
@@ -63,7 +64,7 @@ class FeatureExtractor:
         """
         return len(re.sub(r'[\w]+', '', payload))
 
-    def __get_num_ticks(self, payload):
+    def __get_num_ticks(self: t.FeatureExtT, payload: str) -> int:
         """ Get single quote count from payload
             Parameters
             ----------
@@ -76,7 +77,7 @@ class FeatureExtractor:
         """
         return payload.count('\'')
 
-    def __get_num_dashes(self, payload):
+    def __get_num_dashes(self: t.FeatureExtT, payload: str) -> int:
         """ Get dash count from payload
             Parameters
             ----------
@@ -89,7 +90,7 @@ class FeatureExtractor:
         """
         return payload.count('-')
 
-    def __get_num_commas(self, payload):
+    def __get_num_commas(self: t.FeatureExtT, payload: str) -> int:
         """ Get comma count from payload
             Parameters
             ----------
@@ -102,7 +103,7 @@ class FeatureExtractor:
         """
         return payload.count(',')
 
-    def __get_num_pipes(self, payload):
+    def __get_num_pipes(self: t.FeatureExtT, payload: str) -> int:
         """ Get pipe count from payload
             Parameters
             ----------
@@ -115,7 +116,7 @@ class FeatureExtractor:
         """
         return payload.count('|')
 
-    def __get_num_equals(self, payload):
+    def __get_num_equals(self: t.FeatureExtT, payload: str) -> int:
         """ Get equal count from payload
             Parameters
             ----------
@@ -128,7 +129,7 @@ class FeatureExtractor:
         """
         return payload.count('=')
 
-    def __get_num_keywords(self, payload):
+    def __get_num_keywords(self: t.FeatureExtT, payload: str) -> int:
         """ Get SQL keyword count from payload
             Parameters
             ----------
@@ -157,7 +158,7 @@ class FeatureExtractor:
 
         return count
 
-    def __get_num_parens(self, payload):
+    def __get_num_parens(self: t.FeatureExtT, payload: str) -> int:
         """ Get parenthesis count from payload
             Parameters
             ----------
@@ -170,7 +171,7 @@ class FeatureExtractor:
         """
         return payload.count('(') + payload.count(')')
 
-    def __get_avg_word_len(self, payload):
+    def __get_avg_word_len(self: t.FeatureExtT, payload: str) -> float:
         """ Get avg word length from payload
             Parameters
             ----------
@@ -187,7 +188,7 @@ class FeatureExtractor:
         else:
             return len(payload)
 
-    def __get_num_white_spaces(self, payload):
+    def __get_num_white_spaces(self: t.FeatureExtT, payload: str) -> int:
         """ Get white space count from payload
             Parameters
             ----------
@@ -200,7 +201,7 @@ class FeatureExtractor:
         """
         return payload.count(' ')
 
-    def __get_num_comments(self, payload):
+    def __get_num_comments(self: t.FeatureExtT, payload: str) -> int:
         """ Get SQL comment count from payload
             Parameters
             ----------
@@ -213,7 +214,7 @@ class FeatureExtractor:
         """
         return payload.count('--')
 
-    def __get_features(self, data):
+    def __get_features(self: t.FeatureExtT, data: DataFrame) -> DataFrame:
         """ Extract features from dataset
             Parameters
             ----------
@@ -246,19 +247,12 @@ class FeatureExtractor:
             cols.append(label)
             rows.append(cols)
 
-        df = pd.DataFrame(rows, columns=['num_chars',
-                                         'num_words',
-                                         'num_special_chars',
-                                         'num_ticks',
-                                         'num_dashes',
-                                         'num_commas',
-                                         'num_pipes',
-                                         'num_equals',
-                                         'num_keywords',
-                                         'num_parens',
-                                         'avg_word_len',
-                                         'num_white_spaces',
-                                         'num_comments',
-                                         'label'])
+        df = DataFrame(rows, columns=['num_chars', 'num_words',
+                                      'num_special_chars', 'num_ticks',
+                                      'num_dashes', 'num_commas',
+                                      'num_pipes', 'num_equals',
+                                      'num_keywords', 'num_parens',
+                                      'avg_word_len', 'num_white_spaces',
+                                      'num_comments', 'label'])
 
         return df

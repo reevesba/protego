@@ -14,6 +14,7 @@ __date__ = "April 3, 2022"
 __license__ = "MIT"
 
 from protego.models.base import BaseBatch
+from protego.models import types as t
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
@@ -24,20 +25,20 @@ from sklearn.ensemble import RandomForestClassifier
 
 class DecisionTree(BaseBatch):
     def __init__(
-        self,
-        criterion="gini",
-        splitter="best",
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        min_weight_fraction_leaf=0.0,
-        max_features=None,
-        random_state=None,
-        max_leaf_nodes=None,
-        min_impurity_decrease=0.0,
-        class_weight=None,
-        ccp_alpha=0.0
-    ):
+        self: t.TreeBatchT,
+        criterion: str = "gini",
+        splitter: str = "best",
+        max_depth: int = None,
+        min_samples_split: t.NumberT = 2,
+        min_samples_leaf: t.NumberT = 1,
+        min_weight_fraction_leaf: float = 0.0,
+        max_features: t.MaxFeaturesT = None,
+        random_state: int = None,
+        max_leaf_nodes: int = None,
+        min_impurity_decrease: float = 0.0,
+        class_weight: t.ClassWeightT = None,
+        ccp_alpha: float = 0.0
+    ) -> None:
         super().__init__(
             DecisionTreeClassifier(
                 criterion=criterion,
@@ -58,16 +59,16 @@ class DecisionTree(BaseBatch):
 
 class KNeighbors(BaseBatch):
     def __init__(
-        self,
-        n_neighbors=5,
-        weights="uniform",
-        algorithm="auto",
-        leaf_size=30,
-        p=2,
-        metric="minkowski",
-        metric_params=None,
-        n_jobs=None
-    ):
+        self: t.KNNBatchT,
+        n_neighbors: int = 5,
+        weights: str = "uniform",
+        algorithm: str = "auto",
+        leaf_size: int = 30,
+        p: int = 2,
+        metric: str = "minkowski",
+        metric_params: dict = None,
+        n_jobs: int = None
+    ) -> None:
         super().__init__(
             KNeighborsClassifier(
                 n_neighbors=n_neighbors,
@@ -84,23 +85,23 @@ class KNeighbors(BaseBatch):
 
 class LogisticRegressionClassifier(BaseBatch):
     def __init__(
-        self,
-        penalty="l2",
-        dual=False,
-        tol=1e-4,
-        C=1.0,
-        fit_intercept=True,
-        intercept_scaling=1,
-        class_weight=None,
-        random_state=None,
-        solver="lbfgs",
-        max_iter=100,
-        multi_class="auto",
-        verbose=0,
-        warm_start=False,
-        n_jobs=None,
-        l1_ratio=None
-    ):
+        self: t.LogRegBatchT,
+        penalty: str = "l2",
+        dual: bool = False,
+        tol: float = 1e-4,
+        C: float = 1.0,
+        fit_intercept: bool = True,
+        intercept_scaling: float = 1,
+        class_weight: t.ClassWeightT = None,
+        random_state: int = None,
+        solver: str = "lbfgs",
+        max_iter: int = 100,
+        multi_class: str = "auto",
+        verbose: int = 0,
+        warm_start: bool = False,
+        n_jobs: int = None,
+        l1_ratio: float = None
+    ) -> None:
         super().__init__(
             LogisticRegression(
                 penalty=penalty,
@@ -125,10 +126,10 @@ class LogisticRegressionClassifier(BaseBatch):
 class NaiveBayes(BaseBatch):
     def __init__(
         self,
-        alpha=1.0,
-        fit_prior=True,
-        class_prior=None
-    ):
+        alpha: float = 1.0,
+        fit_prior: bool = True,
+        class_prior: t.ClassPriorT = None
+    ) -> None:
         super().__init__(
             MultinomialNB(
                 alpha=alpha,
@@ -140,24 +141,24 @@ class NaiveBayes(BaseBatch):
 
 class PerceptronClassifier(BaseBatch):
     def __init__(
-        self,
-        penalty=None,
-        alpha=0.0001,
-        l1_ratio=0.15,
-        fit_intercept=True,
-        max_iter=1000,
-        tol=1e-3,
-        shuffle=True,
-        verbose=0,
-        eta0=1,
-        n_jobs=None,
-        random_state=None,
-        early_stopping=False,
-        validation_fraction=0.1,
-        n_iter_no_change=5,
-        class_weight=None,
-        warm_start=False
-    ):
+        self: t.PerceptronBatchT,
+        penalty: str = None,
+        alpha: float = 0.0001,
+        l1_ratio: float = 0.15,
+        fit_intercept: bool = True,
+        max_iter: int = 1000,
+        tol: float = 1e-3,
+        shuffle: bool = True,
+        verbose: int = 0,
+        eta0: float = 1,
+        n_jobs: int = None,
+        random_state: int = None,
+        early_stopping: bool = False,
+        validation_fraction: float = 0.1,
+        n_iter_no_change: int = 5,
+        class_weight: t.ClassWeightT = None,
+        warm_start: bool = False
+    ) -> None:
         super().__init__(
             Perceptron(
                 penalty=penalty,
@@ -182,26 +183,26 @@ class PerceptronClassifier(BaseBatch):
 
 class RandomForest(BaseBatch):
     def __init__(
-        self,
-        n_estimators=100,
-        criterion="gini",
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        min_weight_fraction_leaf=0.0,
-        max_features="auto",
-        max_leaf_nodes=None,
-        min_impurity_decrease=0.0,
-        bootstrap=True,
-        oob_score=False,
-        n_jobs=None,
-        random_state=None,
-        verbose=0,
-        warm_start=False,
-        class_weight=None,
-        ccp_alpha=0.0,
-        max_samples=None
-    ):
+        self: t.RandomForestBatchT,
+        n_estimators: int = 100,
+        criterion: str = "gini",
+        max_depth: int = None,
+        min_samples_split: t.Number = 2,
+        min_samples_leaf: t.Number = 1,
+        min_weight_fraction_leaf: float = 0.0,
+        max_features: str = "auto",
+        max_leaf_nodes: int = None,
+        min_impurity_decrease: float = 0.0,
+        bootstrap: bool = True,
+        oob_score: bool = False,
+        n_jobs: int = None,
+        random_state: int = None,
+        verbose: int = 0,
+        warm_start: bool = False,
+        class_weight: t.ClassWeightT = None,
+        ccp_alpha: float = 0.0,
+        max_samples: t.Number = None
+    ) -> None:
         super().__init__(
             RandomForestClassifier(
                 n_estimators=n_estimators,

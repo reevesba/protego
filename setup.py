@@ -9,21 +9,21 @@ with open("requirements.txt", "r") as fh:
         requirements.append(line.strip())
 
 setuptools.setup(
-    name = "protego",
-    version = "0.0.15",
-    author = "Bradley Reeves",
-    author_email = "reevesbra@outlook.com",
-    description = "Detect SQL Injection Payloads",
-    long_description = long_description,
-    long_description_content_type = "text/markdown",
-    url = "https://github.com/reevesba/protego",
-    packages = setuptools.find_packages(),
-    install_requires = requirements,
-    include_package_data = True,
-    classifiers = [
+    name="protego",
+    version="1.0.0",
+    author="Bradley Reeves",
+    author_email="reevesbra@outlook.com",
+    description="Detect SQL Injection Payloads",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/reevesba/protego",
+    packages=setuptools.find_packages(),
+    install_requires=requirements,
+    include_package_data=True,
+    classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires = ">=3.8",
+    python_requires=">=3.9",
 )

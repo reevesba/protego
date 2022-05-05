@@ -14,6 +14,7 @@ __date__ = "March 27, 2022"
 __license__ = "MIT"
 
 from protego.models.base import BaseOnline
+from protego.models import types as t
 from river.tree import HoeffdingAdaptiveTreeClassifier
 from river.neighbors import KNNADWINClassifier
 from river.linear_model import LogisticRegression
@@ -22,31 +23,32 @@ from river.naive_bayes import MultinomialNB
 from river.ensemble import AdaptiveRandomForestClassifier
 from river.metrics import Accuracy
 from river.drift import ADWIN
+from typing import Union
 
 
 class HoeffdingAdaptiveTree(BaseOnline):
     def __init__(
-        self,
-        grace_period=200,
-        max_depth=None,
-        split_criterion="info_gain",
-        split_confidence=1e-07,
-        tie_threshold=0.05,
-        leaf_prediction="nba",
-        nb_threshold=0,
-        nominal_attributes=None,
-        splitter=None,
-        bootstrap_sampling=True,
-        drift_window_threshold=300,
-        adwin_confidence=0.002,
-        binary_split=False,
-        max_size=100,
-        memory_estimate_period=1000000,
-        stop_mem_management=False,
-        remove_poor_attrs=False,
-        merit_preprune=True,
-        seed=None
-    ):
+        self: t.TreeOnlineT,
+        grace_period: int = 200,
+        max_depth: int = None,
+        split_criterion: str = "info_gain",
+        split_confidence: float = 1e-07,
+        tie_threshold: float = 0.05,
+        leaf_prediction: str = "nba",
+        nb_threshold: int = 0,
+        nominal_attributes: list = None,
+        splitter: t.SplitterT = None,
+        bootstrap_sampling: bool = True,
+        drift_window_threshold: int = 300,
+        adwin_confidence: float = 0.002,
+        binary_split: bool = False,
+        max_size: int = 100,
+        memory_estimate_period: int = 1000000,
+        stop_mem_management: bool = False,
+        remove_poor_attrs: bool = False,
+        merit_preprune: bool = True,
+        seed: int = None
+    ) -> None:
         super().__init__(
             HoeffdingAdaptiveTreeClassifier(
                 grace_period=grace_period,
@@ -74,12 +76,12 @@ class HoeffdingAdaptiveTree(BaseOnline):
 
 class KNNADWIN(BaseOnline):
     def __init__(
-        self,
-        n_neighbors=5,
-        window_size=1000,
-        leaf_size=30,
-        p=2
-    ):
+        self: t.KNNOnlineT,
+        n_neighbors: int = 5,
+        window_size: int = 1000,
+        leaf_size: int = 30,
+        p: int = 2
+    ) -> None:
         super().__init__(
             KNNADWINClassifier(
                 n_neighbors=n_neighbors,
@@ -92,15 +94,15 @@ class KNNADWIN(BaseOnline):
 
 class LogisticRegressionClassifier(BaseOnline):
     def __init__(
-        self,
-        optimizer=None,
-        loss=None,
-        l2=0.0,
-        intercept_init=0.0,
-        intercept_lr=0.01,
-        clip_gradient=1000000000000.0,
-        initializer=None
-    ):
+        self: t.LogRegOnlineT,
+        optimizer: t.OptimizerT = None,
+        loss: t.BinaryLossT = None,
+        l2: float = 0.0,
+        intercept_init: float = 0.0,
+        intercept_lr: t.InterceptLRT = 0.01,
+        clip_gradient: float = 1000000000000.0,
+        initializer: t.InitializerT = None
+    ) -> None:
         super().__init__(
             LogisticRegression(
                 optimizer=optimizer,
@@ -116,9 +118,9 @@ class LogisticRegressionClassifier(BaseOnline):
 
 class NaiveBayes(BaseOnline):
     def __init__(
-        self,
-        alpha=1.0
-    ):
+        self: t.NaiveBayesOnlineT,
+        alpha: float = 1.0
+    ) -> None:
         super().__init__(
             MultinomialNB(
                 alpha=alpha
@@ -128,11 +130,11 @@ class NaiveBayes(BaseOnline):
 
 class PerceptronClassifier(BaseOnline):
     def __init__(
-        self,
-        l2=0.0,
-        clip_gradient=1000000000000.0,
-        initializer=None
-    ):
+        self: t.PerceptronOnlineT,
+        l2: float = 0.0,
+        clip_gradient: float = 1000000000000.0,
+        initializer: t.InitializerT = None
+    ) -> None:
         super().__init__(
             Perceptron(
                 l2=l2,
@@ -144,31 +146,31 @@ class PerceptronClassifier(BaseOnline):
 
 class AdaptiveRandomForest(BaseOnline):
     def __init__(
-        self,
-        n_models=10,
-        max_features="sqrt",
-        lambda_value=6,
-        metric=Accuracy(),
-        disable_weighted_vote=False,
-        drift_detector=ADWIN(),
-        warning_detector=ADWIN(),
-        grace_period=50,
-        max_depth=None,
-        split_criterion="info_gain",
-        split_confidence=0.01,
-        tie_threshold=0.05,
-        leaf_prediction="nba",
-        nb_threshold=0,
-        nominal_attributes=None,
-        splitter=None,
-        binary_split=False,
-        max_size=32,
-        memory_estimate_period=2000000,
-        stop_mem_management=False,
-        remove_poor_attrs=False,
-        merit_preprune=True,
-        seed=None
-    ):
+        self: t.RandomForestOnlineT,
+        n_models: int = 10,
+        max_features: Union[bool, str, int] = "sqrt",
+        lambda_value: int = 6,
+        metric: t.MultiClassMetricT = Accuracy(),
+        disable_weighted_vote: bool = False,
+        drift_detector: t.DriftDetectorT = ADWIN(),
+        warning_detector: t.DriftDetectorT = ADWIN(),
+        grace_period: int = 50,
+        max_depth: int = None,
+        split_criterion: str = "info_gain",
+        split_confidence: float = 0.01,
+        tie_threshold: float = 0.05,
+        leaf_prediction: str = "nba",
+        nb_threshold: int = 0,
+        nominal_attributes: list = None,
+        splitter: t.SplitterT = None,
+        binary_split: bool = False,
+        max_size: int = 32,
+        memory_estimate_period: int = 2000000,
+        stop_mem_management: bool = False,
+        remove_poor_attrs: bool = False,
+        merit_preprune: bool = True,
+        seed: int = None
+    ) -> None:
         super().__init__(
             AdaptiveRandomForestClassifier(
                 n_models=n_models,

@@ -8,10 +8,11 @@ __license__ = "MIT"
 
 import os
 import pandas as pd
+from protego.utils import types as t
 
 
 class DataLoader:
-    def __init__(self):
+    def __init__(self: t.DataLoaderT) -> None:
         """ Initialize DataLoader class
             Parameters
             ----------
@@ -25,7 +26,7 @@ class DataLoader:
         self.filepath_a = self.dir + '/datasets/delivered/sqli_train.csv'
         self.filepath_b = self.dir + '/datasets/delivered/sqli_test.csv'
 
-    def load(self):
+    def load(self: t.DataLoaderT) -> pd.DataFrame:
         """ Load dataset from file
             Parameters
             ----------
